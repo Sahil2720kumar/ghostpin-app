@@ -1,17 +1,18 @@
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 
 type ButtonProps = {
-  title: string;
+  title?: string;
+  children?: ReactNode;
 } & TouchableOpacityProps;
 
-export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps }, ref) => {
+export const Button = forwardRef<View, ButtonProps>(({ title, children, ...touchableProps }, ref) => {
   return (
     <TouchableOpacity
       ref={ref}
       {...touchableProps}
       className={`${styles.button} ${touchableProps.className}`}>
-      <Text className={styles.buttonText}>{title}</Text>
+      {children ? children : <Text className={styles.buttonText}>{title}</Text>}
     </TouchableOpacity>
   );
 });

@@ -1,0 +1,863 @@
+{
+  "results": [
+      {
+          "address_components": [
+              {
+                  "long_name": "987",
+                  "short_name": "987",
+                  "types": [
+                      "premise"
+                  ]
+              },
+              {
+                  "long_name": "Kalibari Road",
+                  "short_name": "Kalibari Rd",
+                  "types": [
+                      "route"
+                  ]
+              },
+              {
+                  "long_name": "West Bansbari",
+                  "short_name": "West Bansbari",
+                  "types": [
+                      "political",
+                      "sublocality",
+                      "sublocality_level_2"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "locality",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "786001",
+                  "short_name": "786001",
+                  "types": [
+                      "postal_code"
+                  ]
+              }
+          ],
+          "formatted_address": "987, Kalibari Rd, West Bansbari, Dibrugarh, Assam 786001, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.479373,
+                      "lng": 94.89994849999999
+                  },
+                  "southwest": {
+                      "lat": 27.4792525,
+                      "lng": 94.8998737
+                  }
+              },
+              "location": {
+                  "lat": 27.4793127,
+                  "lng": 94.8999111
+              },
+              "location_type": "ROOFTOP",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.4806617302915,
+                      "lng": 94.90126008029151
+                  },
+                  "southwest": {
+                      "lat": 27.4779637697085,
+                      "lng": 94.8985621197085
+                  }
+              }
+          },
+          "navigation_points": [
+              {
+                  "location": {
+                      "latitude": 27.4793542,
+                      "longitude": 94.89991670000001
+                  }
+              }
+          ],
+          "place_id": "ChIJ4SxclhuYQDcR06bKbUmNEuA",
+          "types": [
+              "premise",
+              "street_address"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "24",
+                  "short_name": "24",
+                  "types": [
+                      "street_number"
+                  ]
+              },
+              {
+                  "long_name": "MF Hospital",
+                  "short_name": "MF Hospital",
+                  "types": [
+                      "landmark"
+                  ]
+              },
+              {
+                  "long_name": "Kalibari Road",
+                  "short_name": "Kalibari Rd",
+                  "types": [
+                      "route"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "locality",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "786001",
+                  "short_name": "786001",
+                  "types": [
+                      "postal_code"
+                  ]
+              }
+          ],
+          "formatted_address": "24, Kalibari Rd, near MF Hospital, Dibrugarh, Assam 786001, India",
+          "geometry": {
+              "location": {
+                  "lat": 27.4793695,
+                  "lng": 94.90004049999999
+              },
+              "location_type": "ROOFTOP",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.4807184802915,
+                      "lng": 94.9013894802915
+                  },
+                  "southwest": {
+                      "lat": 27.47802051970849,
+                      "lng": 94.89869151970849
+                  }
+              }
+          },
+          "navigation_points": [
+              {
+                  "location": {
+                      "latitude": 27.479346,
+                      "longitude": 94.90003900000001
+                  }
+              }
+          ],
+          "place_id": "ChIJPYMBlhuYQDcRRfNfMUL-L-M",
+          "types": [
+              "street_address"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "Kalibari Road",
+                  "short_name": "Kalibari Rd",
+                  "types": [
+                      "route"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "locality",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "786001",
+                  "short_name": "786001",
+                  "types": [
+                      "postal_code"
+                  ]
+              }
+          ],
+          "formatted_address": "Kalibari Rd, Dibrugarh, Assam 786001, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.4795616,
+                      "lng": 94.89997699999999
+                  },
+                  "southwest": {
+                      "lat": 27.4794112,
+                      "lng": 94.8980239
+                  }
+              },
+              "location": {
+                  "lat": 27.4795099,
+                  "lng": 94.8990027
+              },
+              "location_type": "GEOMETRIC_CENTER",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.4808353802915,
+                      "lng": 94.90034943029151
+                  },
+                  "southwest": {
+                      "lat": 27.4781374197085,
+                      "lng": 94.89765146970851
+                  }
+              }
+          },
+          "place_id": "ChIJkcz6jRuYQDcRtOW8JUrjotY",
+          "types": [
+              "route"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "West Banshbari",
+                  "short_name": "West Banshbari",
+                  "types": [
+                      "political",
+                      "sublocality",
+                      "sublocality_level_1"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "locality",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "786001",
+                  "short_name": "786001",
+                  "types": [
+                      "postal_code"
+                  ]
+              }
+          ],
+          "formatted_address": "West Banshbari, Dibrugarh, Assam 786001, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.4828602,
+                      "lng": 94.9022468
+                  },
+                  "southwest": {
+                      "lat": 27.4794187,
+                      "lng": 94.89744209999999
+                  }
+              },
+              "location": {
+                  "lat": 27.4810402,
+                  "lng": 94.8993876
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.4828602,
+                      "lng": 94.9022468
+                  },
+                  "southwest": {
+                      "lat": 27.4794187,
+                      "lng": 94.89744209999999
+                  }
+              }
+          },
+          "place_id": "ChIJGTGlIhyYQDcRvocD94MzzLY",
+          "types": [
+              "political",
+              "sublocality",
+              "sublocality_level_1"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "locality",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "Dibrugarh, Assam, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.5002641,
+                      "lng": 94.95694659999999
+                  },
+                  "southwest": {
+                      "lat": 27.4403996,
+                      "lng": 94.8782406
+                  }
+              },
+              "location": {
+                  "lat": 27.4705449,
+                  "lng": 94.91246249999999
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.5002641,
+                      "lng": 94.95694659999999
+                  },
+                  "southwest": {
+                      "lat": 27.4403996,
+                      "lng": 94.8782406
+                  }
+              }
+          },
+          "place_id": "ChIJVY_9SQOYQDcR1EuyECuldDA",
+          "types": [
+              "locality",
+              "political"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "786001",
+                  "short_name": "786001",
+                  "types": [
+                      "postal_code"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "Assam 786001, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.5801987,
+                      "lng": 94.9416042
+                  },
+                  "southwest": {
+                      "lat": 27.4682422,
+                      "lng": 94.81074629999999
+                  }
+              },
+              "location": {
+                  "lat": 27.4869909,
+                  "lng": 94.9141152
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.5801987,
+                      "lng": 94.9416042
+                  },
+                  "southwest": {
+                      "lat": 27.4682422,
+                      "lng": 94.81074629999999
+                  }
+              }
+          },
+          "place_id": "ChIJ7QTzu22XQDcRMKjlyLI9me0",
+          "types": [
+              "postal_code"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "Dibrugarh West Circle",
+                  "short_name": "Dibrugarh West Circle",
+                  "types": [
+                      "administrative_area_level_4",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "Dibrugarh West Circle, Assam, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.6177832,
+                      "lng": 95.12485029999999
+                  },
+                  "southwest": {
+                      "lat": 27.0913833,
+                      "lng": 94.5675067
+                  }
+              },
+              "location": {
+                  "lat": 27.4744032,
+                  "lng": 94.9417086
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.6177832,
+                      "lng": 95.12485029999999
+                  },
+                  "southwest": {
+                      "lat": 27.0913833,
+                      "lng": 94.5675067
+                  }
+              }
+          },
+          "place_id": "ChIJ0TOk5Ju7QDcRQ44fiOsIbC8",
+          "types": [
+              "administrative_area_level_4",
+              "political"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "Dibrugarh",
+                  "short_name": "Dibrugarh",
+                  "types": [
+                      "administrative_area_level_3",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "Dibrugarh, Assam, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.7048911,
+                      "lng": 95.4847365
+                  },
+                  "southwest": {
+                      "lat": 27.0911418,
+                      "lng": 94.5679428
+                  }
+              },
+              "location": {
+                  "lat": 27.4705359,
+                  "lng": 94.91251079999999
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.7048911,
+                      "lng": 95.4847365
+                  },
+                  "southwest": {
+                      "lat": 27.0911418,
+                      "lng": 94.5679428
+                  }
+              }
+          },
+          "place_id": "ChIJT9RL3xOYQDcRFmLzFJA5uT8",
+          "types": [
+              "administrative_area_level_3",
+              "political"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "Upper Assam Division",
+                  "short_name": "Upper Assam Division",
+                  "types": [
+                      "administrative_area_level_2",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "Upper Assam Division, Assam, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.9714751,
+                      "lng": 96.0178763
+                  },
+                  "southwest": {
+                      "lat": 25.8089278,
+                      "lng": 93.2868799
+                  }
+              },
+              "location": {
+                  "lat": 27.287489,
+                  "lng": 94.5624426
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.9714751,
+                      "lng": 96.0178763
+                  },
+                  "southwest": {
+                      "lat": 25.8089278,
+                      "lng": 93.2868799
+                  }
+              }
+          },
+          "place_id": "ChIJhzNW-V1VRzcRO77cbusuGC0",
+          "types": [
+              "administrative_area_level_2",
+              "political"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "Assam",
+                  "short_name": "AS",
+                  "types": [
+                      "administrative_area_level_1",
+                      "political"
+                  ]
+              },
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "Assam, India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 27.9714751,
+                      "lng": 96.0178763
+                  },
+                  "southwest": {
+                      "lat": 24.136135,
+                      "lng": 89.6986003
+                  }
+              },
+              "location": {
+                  "lat": 26.2006043,
+                  "lng": 92.9375739
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 27.9714751,
+                      "lng": 96.0178763
+                  },
+                  "southwest": {
+                      "lat": 24.136135,
+                      "lng": 89.6986003
+                  }
+              }
+          },
+          "place_id": "ChIJYy0xTMkWRTcR-xlnc7tzGtE",
+          "types": [
+              "administrative_area_level_1",
+              "political"
+          ]
+      },
+      {
+          "address_components": [
+              {
+                  "long_name": "India",
+                  "short_name": "IN",
+                  "types": [
+                      "country",
+                      "political"
+                  ]
+              }
+          ],
+          "formatted_address": "India",
+          "geometry": {
+              "bounds": {
+                  "northeast": {
+                      "lat": 35.6733149,
+                      "lng": 97.39535869999999
+                  },
+                  "southwest": {
+                      "lat": 6.4626999,
+                      "lng": 68.1097
+                  }
+              },
+              "location": {
+                  "lat": 20.593684,
+                  "lng": 78.96288
+              },
+              "location_type": "APPROXIMATE",
+              "viewport": {
+                  "northeast": {
+                      "lat": 35.6733149,
+                      "lng": 97.39535869999999
+                  },
+                  "southwest": {
+                      "lat": 6.4626999,
+                      "lng": 68.1097
+                  }
+              }
+          },
+          "place_id": "ChIJkbeSa_BfYzARphNChaFPjNc",
+          "types": [
+              "country",
+              "political"
+          ]
+      }
+  ],
+  "status": "OK"
+}
