@@ -9,7 +9,7 @@ export default function Layout() {
     headerTitle: () => (
       <View className="flex-row items-center gap-2">
         <MaterialCommunityIcons name="ghost" size={28} color="#7c3aed" />
-        <Text className="text-lg font-bold text-black text-2xl">GhostPin</Text>
+        <Text className="font-bold text-black text-2xl">GhostPin</Text>
       </View>
     ),
   
@@ -18,7 +18,7 @@ export default function Layout() {
       fontWeight: 'bold',
     },
     headerStyle: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#ffffff',
     },
     headerTintColor: '#000000',
     headerBackTitle: 'Back',

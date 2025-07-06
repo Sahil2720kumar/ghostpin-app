@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
-import { View, Text, TextInput, FlatList, KeyboardAvoidingView, Platform, Alert, Keyboard } from 'react-native';
-import { ScrollView } from 'react-native-virtualized-view'
+import { useEffect, useState, useRef } from 'react';
+import { View, Text, TextInput, FlatList, KeyboardAvoidingView, Platform, Alert, Keyboard, ScrollView, Animated, Dimensions, ActivityIndicator } from 'react-native';
 import { Button } from '~/components/Button';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { useLocationStore } from '~/store/locationStore';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
-import { getAddress } from '~/utils/getAddress';  
+import { getAddress } from '~/utils/getAddress';
+import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableOpacity } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default function AddLocation() {
   const [latitude, setLatitude] = useState('');
@@ -18,6 +21,46 @@ export default function AddLocation() {
   const { addLocation } = useLocationStore();
   const locations = useLocationStore((s) => s.locations);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(30)).current;
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // Entrance animation
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // Pulse animation for loading
+    if (isLoading) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseAnim, {
+            toValue: 1.1,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnim, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    } else {
+      pulseAnim.setValue(1);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -32,21 +75,26 @@ export default function AddLocation() {
       keyboardDidHideListener.remove();
     };
   }, []);
+
   useEffect(() => {
     async function getCurrentLocation() {
+      setIsLoading(true);
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+      });
+
       setLocation(location);
       setLatitude(location?.coords.latitude.toString() || '');
       setLongitude(location?.coords.longitude.toString() || '');
-
       const address = await getAddress(location?.coords.latitude, location?.coords.longitude);
       setAddress(address || '');
+      setIsLoading(false);
     }
 
     getCurrentLocation();
@@ -54,7 +102,10 @@ export default function AddLocation() {
 
   const handleGetLocation = async () => {
     setIsLoading(true);
-    let location = await Location.getCurrentPositionAsync({});
+    let location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Highest,
+    });
+
     const address = await getAddress(location?.coords.latitude, location?.coords.longitude);
     setLocation(location);
     setLatitude(location?.coords.latitude.toString() || '');
@@ -63,11 +114,8 @@ export default function AddLocation() {
     setIsLoading(false);
   };
 
-
-
   const handleAdd = async () => {
     if (!latitude || !longitude) return;
-    
     if (Number(latitude) < -90 || Number(latitude) > 90 || Number(longitude) < -180 || Number(longitude) > 180) {
       Alert.alert('Invalid coordinates', 'Latitude must be between -90 and 90, and longitude must be between -180 and 180.');
       return;
@@ -77,15 +125,16 @@ export default function AddLocation() {
       Alert.alert('Invalid coordinates', 'Latitude and longitude cannot be 0.');
       return;
     }
-    
-    const address = await getAddress(Number(latitude), Number(longitude));
+
+    const current_address = await getAddress(Number(latitude), Number(longitude));
 
     addLocation({
       id: Date.now().toString(),
       latitude: parseFloat(latitude),
       longitude: parseFloat(longitude),
-      address: address?.trim() || address || undefined,
+      address: current_address?.trim() || current_address || undefined,
     });
+
     setLatitude('');
     setLongitude('');
     setAddress('');
@@ -93,144 +142,316 @@ export default function AddLocation() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: '#FFFFFF' }}
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <ScrollView className="flex-1  pt-8 w-full" contentContainerStyle={{ paddingBottom: isKeyboardVisible ? 100 : 0, alignItems: 'center' }}>
-        <View
-          className="w-[92vw] max-w-xl rounded-3xl px-7 py-8 mb-4 items-center shadow-2xl z-10 mb-8"
-          style={{ backgroundColor: '#FFFFFF', borderColor: '#5E17EB', borderWidth: 1 }}
-        >
-          <View className="flex-row items-center mb-3 mt-1">
-            <MaterialCommunityIcons name="ghost" size={40} color="#5E17EB" style={{ marginRight: 10 }} />
-            <Text className="text-3xl font-extrabold text-black" style={{ letterSpacing: 2 }}>GhostPin</Text>
+      <LinearGradient
+        colors={["#667eea", "#764ba2", "#f093fb"]}
+        className="flex-1"
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        {isLoading && (
+          <View className=" flex items-center justify-center bg-green-400 flex-row gap-2">
+            <Text className="text-white text-base font-bold">Fatching current location...</Text>
+            <ActivityIndicator size="small" color="#ffffff" />
           </View>
-          <Text className="text-base text-center mb-7 mt-1 font-medium text-gray-700">
-            Add a custom location to pin anywhere in the world!
-          </Text>
+        )}
 
-          <View className="w-full mb-3">
-            <View className="flex-col w-full gap-3">
-              <View className="flex-row items-center mb-3 w-full bg-[#F5F5F5] rounded-2xl px-4 py-3 shadow border" style={{ borderColor: '#5E17EB' }}>
-                <Feather name="map-pin" size={24} color="#5E17EB" style={{ marginRight: 8 }} />
-                <TextInput
-                  style={{
-                    flex: 1,
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: 8,
-                    paddingHorizontal: 12,
-                    paddingVertical: 10,
-                    marginRight: 6,
-                    color: '#000000',
-                    fontSize: 16,
-                    borderWidth: 1,
-                    borderColor: '#CCCCCC',
-                  }}
-                  placeholder="Latitude"
-                  placeholderTextColor="#888"
-                  keyboardType="numeric"
-                  value={latitude}
-                  onChangeText={setLatitude}
-                />
-                <TextInput
-                  style={{
-                    flex: 1,
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: 8,
-                    paddingHorizontal: 12,
-                    paddingVertical: 10,
-                    marginLeft: 6,
-                    color: '#000000',
-                    fontSize: 16,
-                    borderWidth: 1,
-                    borderColor: '#CCCCCC',
-                  }}
-                  placeholder="Longitude"
-                  placeholderTextColor="#888"
-                  keyboardType="numeric"
-                  value={longitude}
-                  onChangeText={setLongitude}
-                />
-              </View>
 
-              <View className="w-full mt-3">
-                <TextInput
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: 12,
-                    paddingHorizontal: 18,
-                    paddingVertical: 14,
-                    color: '#000000',
-                    fontSize: 16,
-                    borderWidth: 1,
-                    borderColor: '#CCCCCC',
-                  }}
-                  placeholder="Custom Address (Optional)"
-                  placeholderTextColor="#888"
-                  value={address}
-                  onChangeText={setAddress}
-                  multiline
-                  numberOfLines={2}
-                  textAlignVertical="top"
-                />
-              </View>
-            </View>
-
-            <View className="flex-row justify-end gap-3 mt-4">
-              <Button
-                onPress={handleGetLocation}
-                className="px-4 py-3 rounded-xl shadow flex-row items-center"
-                style={{ backgroundColor: '#5E17EB' }}
-              >
-                <Feather name="crosshair" size={18} color="#FFFFFF" style={{ marginRight: 4 }} />
-                <Text className="font-bold text-white" style={{ fontSize: 16 }}>{isLoading ? `Getting...` : "Get"}</Text>
-              </Button>
-              <Button
-                onPress={handleAdd}
-                className="px-5 py-3 rounded-xl shadow"
-                style={{ backgroundColor: '#00FFC6' }}
-              >
-                <Text className="font-bold text-black" style={{ fontSize: 16 }}>Add</Text>
-              </Button>
-            </View>
-          </View>
-
-          <Text className="text-lg font-bold mb-2 mt-3 self-start tracking-wide text-black">
-            Added Locations
-          </Text>
-
-          <FlatList
-            data={locations}
-            keyExtractor={(item) => item.id}
-            className="mt-1 h-full w-full"
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 32 }}
-            renderItem={({ item }) => (
-              <View className="flex-row items-center rounded-lg px-3 py-2 mb-2 mx-0.5 shadow-sm border" style={{ backgroundColor: '#F5F5F5', borderColor: '#CCCCCC' }}>
-                <MapView
-                  style={{ width: 100, height: 100, marginRight: 12, borderRadius: 10 }}
-                  initialRegion={{
-                    latitude: item.latitude,
-                    longitude: item.longitude,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
-                  }}
-                >
-                  <Marker coordinate={{ latitude: item.latitude, longitude: item.longitude }} title={item.address} />
-                </MapView>
-                <View className="flex-1">
-                  <Text className="text-base font-semibold text-black">Lat: {item.latitude.toFixed(5)}</Text>
-                  <Text className="text-base font-semibold text-black">Lng: {item.longitude.toFixed(5)}</Text>
-                  {item.address && (
-                    <Text className="text-sm italic mt-1" style={{ color: '#5E17EB' }}>{item.address}</Text>
-                  )}
-                </View>
-              </View>
-            )}
-            ListEmptyComponent={<Text className="text-center mt-4 text-base italic text-gray-500">No locations added yet.</Text>}
+        {/* Floating background elements */}
+        <View className="absolute inset-0 overflow-hidden">
+          <View
+            className="absolute w-64 h-64 rounded-full opacity-10"
+            style={{
+              backgroundColor: '#FFFFFF',
+              top: -80,
+              left: -80,
+            }}
+          />
+          <View
+            className="absolute w-40 h-40 rounded-full opacity-10"
+            style={{
+              backgroundColor: '#FFFFFF',
+              bottom: -20,
+              right: -20,
+            }}
           />
         </View>
-      </ScrollView>
+
+        <ScrollView
+          className="flex-1 pt-12 w-full"
+          contentContainerStyle={{
+            paddingBottom: isKeyboardVisible ? 100 : 20,
+            alignItems: 'center'
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <Animated.View
+            style={{
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }],
+            }}
+            className="w-[94vw] max-w-xl rounded-3xl px-6 py-8 mb-4 items-center z-10"
+          >
+            {/* Glassmorphism container */}
+            <View className="w-full rounded-3xl px-7 py-8 mb-6 items-center"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.25)',
+                borderColor: 'rgba(255,255,255,0.3)',
+                borderWidth: 1,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 8 },
+                shadowOpacity: 0.3,
+                shadowRadius: 20,
+              }}>
+
+              {/* Header */}
+              <View className="flex-row items-center mb-6 mt-2">
+                <View className="mr-3 p-2 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+                  <MaterialCommunityIcons name="ghost" size={32} color="#FFFFFF" />
+                </View>
+                <View>
+                  <Text className="text-2xl font-black text-white" style={{ letterSpacing: 1.2 }}>Add GhostPin</Text>
+                  <Text className="text-sm text-white opacity-80 font-medium">Pin any location worldwide</Text>
+                </View>
+              </View>
+
+              {/* Input Section */}
+              <View className="w-full mb-6">
+                {/* Coordinates Input */}
+                <View className="mb-4">
+                  <Text className="text-white font-semibold mb-3 text-base opacity-90">Coordinates</Text>
+                  <View className="flex-row gap-3">
+                    <View className="flex-1 relative">
+                      <View className="absolute left-3 top-4 z-10">
+                        <MaterialCommunityIcons name="latitude" size={20} color="#667eea" />
+                      </View>
+                      <TextInput
+                        style={{
+                          backgroundColor: 'rgba(255,255,255,0.95)',
+                          borderRadius: 16,
+                          paddingHorizontal: 16,
+                          paddingLeft: 35,
+                          paddingVertical: 10,
+                          color: '#333',
+                          fontSize: 16,
+                          fontWeight: '600',
+                          borderWidth: 2,
+                          borderColor: 'rgba(255,255,255,0.3)',
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 2 },
+                          shadowOpacity: 0.1,
+                          shadowRadius: 4,
+                        }}
+                        placeholder="Latitude"
+                        placeholderTextColor="#999"
+                        keyboardType="numeric"
+                        value={latitude}
+                        onChangeText={setLatitude}
+                      />
+                    </View>
+                    <View className="flex-1 relative">
+                      <View className="absolute left-3 top-4 z-10">
+                        <MaterialCommunityIcons name="longitude" size={20} color="#667eea" />
+                      </View>
+                      <TextInput
+                        style={{
+                          backgroundColor: 'rgba(255,255,255,0.95)',
+                          borderRadius: 16,
+                          paddingHorizontal: 16,
+                          paddingLeft: 35,
+                          paddingVertical: 10,
+                          color: '#333',
+                          fontSize: 16,
+                          fontWeight: '600',
+                          borderWidth: 2,
+                          borderColor: 'rgba(255,255,255,0.3)',
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 2 },
+                          shadowOpacity: 0.1,
+                          shadowRadius: 4,
+                        }}
+                        placeholder="Longitud"
+                        placeholderTextColor="#999"
+                        keyboardType="numeric"
+                        value={longitude}
+                        onChangeText={setLongitude}
+                        numberOfLines={1}
+                        multiline={false}
+                      />
+                    </View>
+                  </View>
+                </View>
+
+                {/* Address Input */}
+                <View className="mb-6">
+                  <Text className="text-white font-semibold mb-3 text-base opacity-90">Address (Optional)</Text>
+                  <View className="relative">
+                    <View className="absolute left-3 top-4 z-10">
+                      <Feather name="map-pin" size={20} color="#667eea" />
+                    </View>
+                    <TextInput
+
+                      style={{
+                        backgroundColor: 'rgba(255,255,255,0.95)',
+                        borderRadius: 16,
+                        paddingHorizontal: 16,
+                        paddingLeft: 35,
+                        paddingVertical: 10,
+                        color: '#333',
+                        fontSize: 16,
+                        fontWeight: '500',
+                        borderWidth: 2,
+                        borderColor: 'rgba(255,255,255,0.3)',
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.1,
+                        shadowRadius: 4,
+                      }}
+                      placeholder="Enter custom address..."
+                      placeholderTextColor="#999"
+                      value={address}
+                      onChangeText={setAddress}
+                      multiline
+                      numberOfLines={5}
+                      textAlignVertical="top"
+                    />
+                  </View>
+                </View>
+
+                {/* Action Buttons */}
+                <View className="w-full flex-row gap-4 justify-center px-4">
+                  <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
+                    <TouchableOpacity
+                      onPress={handleGetLocation}
+                      disabled={isLoading}
+                      className="flex-row items-center px-3.5 py-2 rounded-2xl shadow-lg"
+                      style={{
+                        backgroundColor: 'rgba(255,255,255,0.9)',
+                        borderWidth: 2,
+                        borderColor: 'rgba(255,255,255,0.3)',
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 4 },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 8,
+                      }}
+                      
+                    >
+                      <MaterialCommunityIcons
+                        name={isLoading ? "loading" : "crosshairs-gps"}
+                        size={20}
+                        color="#667eea"
+                        style={{ marginRight: 8 }}
+                      />
+                      <Text className="font-bold text-gray-700 text-base">
+                        {isLoading ? 'Getting...' : 'Get Location'}
+                      </Text>
+                    </TouchableOpacity>
+                  </Animated.View>
+
+                  <LinearGradient
+                    colors={['#00D4AA', '#00B894']}
+                    className="shadow-lg rounded-xl overflow-hidden"
+                    style={{
+                      shadowColor: '#00D4AA',
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.3,
+                      shadowRadius: 8,
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={handleAdd}
+                      className="flex-row items-center px-3.5 py-2 rounded-xl "
+                    >
+                      <MaterialCommunityIcons name="plus" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
+                      <Text className="font-bold text-white text-base">Add Pin</Text>
+                    </TouchableOpacity>
+                  </LinearGradient>
+                </View>
+              </View>
+            </View>
+
+            {/* Added Locations Section */}
+            <View className="w-full rounded-3xl px-7 py-6 items-center"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.25)',
+                borderColor: 'rgba(255,255,255,0.3)',
+                borderWidth: 1,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 8 },
+                shadowOpacity: 0.3,
+                shadowRadius: 20,
+              }}>
+
+              <View className="flex-row items-center justify-between w-full mb-4">
+                <View>
+                  <Text className="text-xl font-bold text-white mb-1">Your Pins</Text>
+                  <View className="w-16 h-1 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }} />
+                </View>
+                <View className=" bg-opacity-20 rounded-full px-3 py-1">
+                  <Text className="text-white font-bold text-md">{locations.length}</Text>
+                </View>
+              </View>
+
+              <FlatList
+                data={locations}
+                keyExtractor={(item) => item.id}
+                className="w-full"
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 10 }}
+                renderItem={({ item }) => (
+                  <View className="flex-row items-center rounded-2xl px-4 py-3 mb-3 shadow-lg"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.9)',
+                      borderColor: 'rgba(255,255,255,0.3)',
+                      borderWidth: 1,
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: 4 },
+                      shadowOpacity: 0.2,
+                      shadowRadius: 8,
+                    }}>
+                    <View className="rounded-xl overflow-hidden mr-4 shadow-md">
+                      <MapView
+                        style={{ width: 80, height: 80 }}
+                        initialRegion={{
+                          latitude: item.latitude,
+                          longitude: item.longitude,
+                          latitudeDelta: 0.01,
+                          longitudeDelta: 0.01,
+                        }}
+                      >
+                        <Marker coordinate={{ latitude: item.latitude, longitude: item.longitude }} title={item.address} />
+                      </MapView>
+                    </View>
+                    <View className="flex-1">
+                      <Text className="text-sm font-bold text-gray-800 mb-1">
+                        {item.latitude.toFixed(5)}, {item.longitude.toFixed(5)}
+                      </Text>
+                      {item.address && (
+                        <Text className="text-sm font-medium text-gray-600 leading-5" numberOfLines={2}>
+                          {item.address}
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+                )}
+                ListEmptyComponent={
+                  <View className="items-center justify-center py-8">
+                    <MaterialCommunityIcons name="map-marker-plus" size={48} color="rgba(255,255,255,0.6)" />
+                    <Text className="text-center mt-3 text-base font-medium text-white opacity-80">
+                      No pins added yet
+                    </Text>
+                    <Text className="text-center mt-1 text-sm text-white opacity-60">
+                      Add your first location above
+                    </Text>
+                  </View>
+                }
+              />
+            </View>
+          </Animated.View>
+        </ScrollView>
+      </LinearGradient>
     </KeyboardAvoidingView>
   );
 }
