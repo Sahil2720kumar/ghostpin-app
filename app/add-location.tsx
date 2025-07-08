@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
-import { View, Text, TextInput, FlatList, KeyboardAvoidingView, Platform, Alert, Keyboard, ScrollView, Animated, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, FlatList, KeyboardAvoidingView, Platform, Alert, Keyboard, ScrollView, Animated, Dimensions, ActivityIndicator, Image  } from 'react-native';
 import { Button } from '~/components/Button';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { useLocationStore } from '~/store/locationStore';
 import * as Location from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
 import { getAddress } from '~/utils/getAddress';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
+import LocationCard from '~/components/LocationCard';
+import { router } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 
@@ -25,7 +26,7 @@ export default function AddLocation() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
-
+  
   useEffect(() => {
     // Entrance animation
     Animated.parallel([
@@ -125,7 +126,9 @@ export default function AddLocation() {
       Alert.alert('Invalid coordinates', 'Latitude and longitude cannot be 0.');
       return;
     }
-
+ 
+    console.log("new latitude",latitude);
+    console.log("new longitude",longitude);
     const current_address = await getAddress(Number(latitude), Number(longitude));
 
     addLocation({
@@ -138,6 +141,9 @@ export default function AddLocation() {
     setLatitude('');
     setLongitude('');
     setAddress('');
+
+    console.log("current_address",current_address);
+    
   };
 
   return (
@@ -157,6 +163,23 @@ export default function AddLocation() {
             <ActivityIndicator size="small" color="#ffffff" />
           </View>
         )}
+
+        {/* Top controls */}
+        <View className="absolute top-0 left-0 right-0 z-10">
+          <View
+            className="px-5 py-3"
+          >
+            <View className="flex-row justify-between items-center px-5">
+              <TouchableOpacity
+                className="w-11 h-11 rounded-full bg-white/20 justify-center items-center"
+                onPress={() => { router.back() }}
+                activeOpacity={0.7}
+              >
+                <Feather name="arrow-left" size={24} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
 
 
         {/* Floating background elements */}
@@ -401,40 +424,7 @@ export default function AddLocation() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 10 }}
                 renderItem={({ item }) => (
-                  <View className="flex-row items-center rounded-2xl px-4 py-3 mb-3 shadow-lg"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.9)',
-                      borderColor: 'rgba(255,255,255,0.3)',
-                      borderWidth: 1,
-                      shadowColor: '#000',
-                      shadowOffset: { width: 0, height: 4 },
-                      shadowOpacity: 0.2,
-                      shadowRadius: 8,
-                    }}>
-                    <View className="rounded-xl overflow-hidden mr-4 shadow-md">
-                      <MapView
-                        style={{ width: 80, height: 80 }}
-                        initialRegion={{
-                          latitude: item.latitude,
-                          longitude: item.longitude,
-                          latitudeDelta: 0.01,
-                          longitudeDelta: 0.01,
-                        }}
-                      >
-                        <Marker coordinate={{ latitude: item.latitude, longitude: item.longitude }} title={item.address} />
-                      </MapView>
-                    </View>
-                    <View className="flex-1">
-                      <Text className="text-sm font-bold text-gray-800 mb-1">
-                        {item.latitude.toFixed(5)}, {item.longitude.toFixed(5)}
-                      </Text>
-                      {item.address && (
-                        <Text className="text-sm font-medium text-gray-600 leading-5" numberOfLines={2}>
-                          {item.address}
-                        </Text>
-                      )}
-                    </View>
-                  </View>
+                  <LocationCard item={item} />
                 )}
                 ListEmptyComponent={
                   <View className="items-center justify-center py-8">

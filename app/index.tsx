@@ -4,8 +4,8 @@ import { Button } from '~/components/Button';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { useLocationStore } from '~/store/locationStore';
 import { LinearGradient } from 'expo-linear-gradient';
-import MapView, { Marker } from 'react-native-maps';
 import { useEffect, useRef } from 'react';
+import LocationCard from '~/components/LocationCard';
 
 const { width } = Dimensions.get('window');
 
@@ -128,58 +128,29 @@ export default function Home() {
               </Text>
               <View className="w-20 h-1 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.6)' }} />
             </View>
-
+            
             <FlatList
-              data={locations}
-              keyExtractor={(item) => item.id}
-              className="mt-2 h-full w-full"
-              contentContainerStyle={{ paddingBottom: 32 }}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <View className="flex-row items-center rounded-2xl px-4 py-3 mb-3 mx-0.5 shadow-lg border" 
-                      style={{ 
-                        backgroundColor: 'rgba(255,255,255,0.9)', 
-                        borderColor: 'rgba(255,255,255,0.3)',
-                        shadowColor: '#000',
-                        shadowOffset: { width: 0, height: 4 },
-                        shadowOpacity: 0.2,
-                        shadowRadius: 10,
-                      }}>
-                  <View className="rounded-xl overflow-hidden mr-4 shadow-md">
-                    <MapView
-                      style={{ width: 90, height: 90 }}
-                      initialRegion={{
-                        latitude: item.latitude,
-                        longitude: item.longitude,
-                        latitudeDelta: 0.01,
-                        longitudeDelta: 0.01,
-                      }}
-                    >
-                      <Marker coordinate={{ latitude: item.latitude, longitude: item.longitude }} title={item.address} />
-                    </MapView>
-                  </View>
-                  <View className="flex-1">
-                    <Text className="text-sm font-bold text-gray-800 mb-1">
-                      {item.latitude.toFixed(5)}, {item.longitude.toFixed(5)}
+                data={locations}
+                keyExtractor={(item) => item.id}
+                className="w-full"
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 10 }}
+                renderItem={({ item }) => (
+                  <LocationCard item={item} />
+                )}
+                ListEmptyComponent={
+                  <View className="items-center justify-center py-8">
+                    <MaterialCommunityIcons name="map-marker-plus" size={48} color="rgba(255,255,255,0.6)" />
+                    <Text className="text-center mt-3 text-base font-medium text-white opacity-80">
+                      No pins added yet
                     </Text>
-                    <Text className="text-sm font-medium text-gray-600 leading-5" numberOfLines={2}>
-                      {item.address}
+                    <Text className="text-center mt-1 text-sm text-white opacity-60">
+                      Add your first location above
                     </Text>
                   </View>
-                </View>
-              )}
-              ListEmptyComponent={
-                <View className="items-center justify-center py-12">
-                  <MaterialCommunityIcons name="map-marker-outline" size={64} color="rgba(255,255,255,0.6)" />
-                  <Text className="text-center mt-4 text-base font-medium text-white opacity-80">
-                    No locations added yet
-                  </Text>
-                  <Text className="text-center mt-1 text-sm text-white opacity-60">
-                    Add your first GhostPin to get started!
-                  </Text>
-                </View>
-              }
-            />
+                }
+              />
+           
           </View>
         </Animated.View>
 
@@ -247,7 +218,7 @@ export default function Home() {
 
           {/* Gallery Button */}
           <TouchableOpacity className="flex-1 items-center">
-            <Button onPress={() => router.push('/gallery')} 
+            <Button onPress={() => router.push('/model')} 
                     className="w-16 h-16 rounded-2xl items-center justify-center shadow-lg border-2" 
                     style={{ 
                       backgroundColor: '#FF6B6B', 
