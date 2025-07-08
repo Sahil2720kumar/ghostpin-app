@@ -218,7 +218,7 @@ export default function Home() {
 
           {/* Gallery Button */}
           <TouchableOpacity className="flex-1 items-center">
-            <Button onPress={() => router.push('/model')} 
+            <Button onPress={() => router.push('/gallery')} 
                     className="w-16 h-16 rounded-2xl items-center justify-center shadow-lg border-2" 
                     style={{ 
                       backgroundColor: '#FF6B6B', 

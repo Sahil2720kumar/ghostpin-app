@@ -9,6 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
 import LocationCard from '~/components/LocationCard';
 import { router } from 'expo-router';
+import { Toast } from 'toastify-react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -102,17 +103,27 @@ export default function AddLocation() {
   }, []);
 
   const handleGetLocation = async () => {
-    setIsLoading(true);
-    let location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Highest,
-    });
-
-    const address = await getAddress(location?.coords.latitude, location?.coords.longitude);
-    setLocation(location);
-    setLatitude(location?.coords.latitude.toString() || '');
-    setLongitude(location?.coords.longitude.toString() || '');
-    setAddress(address || '');
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      // let location = await Location.getCurrentPositionAsync({
+      //   accuracy: Location.Accuracy.Highest,
+      // });
+      
+      const address = await getAddress(Number(latitude), Number(longitude));
+      // setLocation(location);
+      // setLatitude(location?.coords.latitude.toString() || '');
+      // setLongitude(location?.coords.longitude.toString() || '');
+      setAddress(address || '');
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log("error", error);
+      Toast.show({
+        text1: "Error getting location",
+        type: "error",
+      });
+    }
+ 
   };
 
   const handleAdd = async () => {

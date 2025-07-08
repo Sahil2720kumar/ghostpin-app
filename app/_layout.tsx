@@ -3,10 +3,13 @@ import { Stack } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ToastManager from 'toastify-react-native'
+
 
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <ToastManager />
       <Stack screenOptions={{
         headerShown: true,
         headerTitle: () => (
@@ -32,6 +35,7 @@ export default function Layout() {
         <Stack.Screen name="preview" options={{ headerShown: false }} />
         <Stack.Screen name="add-location" options={{ headerShown: false }} />
         <Stack.Screen name="model"  options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="gallery" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );

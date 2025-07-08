@@ -10,7 +10,7 @@ import { useAppState } from '@react-native-community/hooks';
 const { width, height } = Dimensions.get('window');
 import Reanimated, { Extrapolation, interpolate, useAnimatedProps, useSharedValue, withTiming } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import LoadingCameraView from '../components/LoadingCameraView'
+import LoadingView from '../components/LoadingView'
 import PermissionView from '~/components/PermissionView';
 import PrePreview from '~/components/PrePreview';
 
@@ -41,7 +41,7 @@ export default function CameraScreen() {
 
   if (!device) {
     return (
-      <LoadingCameraView />
+      <LoadingView message="Loading Camera..." iconName="camera-outline" />
     )
   }
 
@@ -235,7 +235,7 @@ export default function CameraScreen() {
               <View className="flex-row justify-between items-center px-5">
                 <TouchableOpacity
                   className="w-11 h-11 rounded-full bg-white/20 justify-center items-center"
-                  onPress={() => { router.back() }}
+                  onPress={() => { router.replace('/') }}
                   activeOpacity={0.7}
                 >
                   <Feather name="x" size={24} color="#fff" />

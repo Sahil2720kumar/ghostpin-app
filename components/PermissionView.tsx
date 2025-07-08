@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import MaterialCommunityIcons from '@expo/vector-icons/build/MaterialCommunityIcons';
 import Feather from '@expo/vector-icons/build/Feather';
 
-const PermissionView = ({ message, description, requestPermission, permissionChecked }: { message: string, description: string, requestPermission: () => void, permissionChecked: boolean }) => {
+const PermissionView = ({ message, description, requestPermission, permissionChecked, iconName }: { message: string, description: string, requestPermission: () => void, permissionChecked: boolean, iconName?: string }) => {
   const permissionAnim = useRef(new Animated.Value(0)).current;
   console.log("render PermissionView");
   useEffect(() => {
@@ -16,6 +16,9 @@ const PermissionView = ({ message, description, requestPermission, permissionChe
       }).start();
     } 
   }, [permissionChecked]);
+
+
+ 
 
 
   return (
@@ -32,7 +35,7 @@ const PermissionView = ({ message, description, requestPermission, permissionChe
           className="items-center max-w-xs"
         >
           <View className="relative mb-8">
-            <MaterialCommunityIcons name="camera-outline" size={80} color="#fff" />
+            <MaterialCommunityIcons name={iconName || "camera-outline"} size={80} color="#fff" />
             <View className="absolute -bottom-1 -right-1 bg-white rounded-full p-2 shadow-lg">
               <Feather name="lock" size={20} color="#667eea" />
             </View>
