@@ -22,7 +22,7 @@ Reanimated.addWhitelistedNativeProps({
 
 
 export default function CameraScreen() {
-  const ReanimatedCamera = useMemo(() => Reanimated.createAnimatedComponent(Camera), [])
+  // const ReanimatedCamera = useMemo(() => Reanimated.createAnimatedComponent(Camera), [])
   const isFocused = useIsFocused()
   const appState = useAppState()
   const isActive = isFocused && appState === "active"
@@ -86,7 +86,7 @@ export default function CameraScreen() {
 
   //camera config
   const format = useCameraFormat(device, [
-    { photoResolution: { width: width, height: height } }
+    { photoResolution: 'max', photoHdr: true }
   ])
 
 
@@ -156,7 +156,7 @@ export default function CameraScreen() {
       const photo = await camera.current?.takePhoto({
         enableShutterSound: true,
         flash: flashMode,
-
+           
       })
       if (!photo) {
         Alert.alert('Error', 'Failed to capture photo');
@@ -207,18 +207,21 @@ export default function CameraScreen() {
       <StatusBar barStyle="light-content" backgroundColor="#000" />
       <Stack.Screen options={{ headerShown: false }} />
 
-      <GestureDetector gesture={gesture}>
-        <ReanimatedCamera
+      {/* <GestureDetector gesture={gesture}> */}
+        <Camera
           ref={camera}
           style={StyleSheet.absoluteFill}
           device={device}
           isActive={isActive}
           photo={true}
           format={format}
-          animatedProps={animatedProps}
+          photoHdr={true}
+          photoQualityBalance={'quality'}
+          // torch={'on'}
+          // animatedProps={animatedProps}
           outputOrientation={"preview"}
         />
-      </GestureDetector>
+      {/* </GestureDetector> */}
 
 
       {photo ? (

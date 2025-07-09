@@ -1,13 +1,13 @@
 import { Stack, router } from 'expo-router';
-import { 
-  View, 
-  Text, 
-  FlatList, 
-  Dimensions, 
-  TouchableOpacity, 
-  Pressable, 
-  Animated, 
-  Image, 
+import {
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+  Pressable,
+  Animated,
+  Image,
   Alert,
   Modal,
   Share,
@@ -24,6 +24,7 @@ import * as MediaLibrary from 'expo-media-library';
 import PhotoItem from '~/components/PhotoItem';
 import LoadingView from '~/components/LoadingView';
 import ToastManager, { Toast } from 'toastify-react-native'
+import * as Sharing from 'expo-sharing';
 
 const { width, height } = Dimensions.get('window');
 
@@ -83,9 +84,8 @@ export default function Gallery() {
 
   const handleShare = async (photo: MediaLibrary.Asset) => {
     try {
-      const result = await Share.share({
-        message: `Check out this amazing photo from GhostPin! 📸✨`,
-        url: photo.uri,
+      await Sharing.shareAsync(photo.uri, {
+        dialogTitle: 'Share this Amazing Photo From GhostPin',
       });
     } catch (error) {
       Alert.alert('Error', 'Failed to share photo');
@@ -133,10 +133,10 @@ export default function Gallery() {
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
-    return date.toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
   };
 
@@ -146,7 +146,7 @@ export default function Gallery() {
       <LoadingView message="Loading Gallery..." iconName="image" />
     )
   }
-  
+
 
 
   if (!hasPermission) {
@@ -160,7 +160,7 @@ export default function Gallery() {
     )
   }
 
-  
+
 
   return (
     <>
@@ -173,7 +173,7 @@ export default function Gallery() {
       >
         {/* Floating background elements */}
         <View className="absolute inset-0 overflow-hidden">
-          <View 
+          <View
             className="absolute w-72 h-72 rounded-full opacity-10"
             style={{
               backgroundColor: '#FFFFFF',
@@ -181,7 +181,7 @@ export default function Gallery() {
               right: -100,
             }}
           />
-          <View 
+          <View
             className="absolute w-48 h-48 rounded-full opacity-10"
             style={{
               backgroundColor: '#FFFFFF',
@@ -235,7 +235,7 @@ export default function Gallery() {
             >
               <Feather name="arrow-left" size={20} color="#FFFFFF" />
             </TouchableOpacity>
-            
+
             <View className="flex-row items-center">
               <View className="mr-3 p-2 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
                 <Feather name="image" size={24} color="#FFFFFF" />
@@ -244,7 +244,7 @@ export default function Gallery() {
                 Gallery
               </Text>
             </View>
-            
+
             <TouchableOpacity
               onPress={() => router.push('/camera')}
               className="p-3 rounded-full"
@@ -274,7 +274,7 @@ export default function Gallery() {
                 <Text className="text-2xl font-black text-white">{photos.length}</Text>
                 <Text className="text-sm text-white opacity-80">Photos</Text>
               </View>
-              
+
               <View className="items-center">
                 <Text className="text-2xl font-black text-white">
                   {Math.ceil((Date.now() - new Date(photos[photos.length - 1]?.modificationTime).getTime()) / (1000 * 60 * 60 * 24))}
@@ -335,7 +335,7 @@ export default function Gallery() {
                   >
                     <Feather name="x" size={24} color="#FFFFFF" />
                   </TouchableOpacity>
-                  
+
                   <View className="flex-row">
                     <TouchableOpacity
                       onPress={() => handleShare(selectedPhoto)}

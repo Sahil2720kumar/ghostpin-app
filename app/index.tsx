@@ -10,6 +10,8 @@ import LocationCard from '~/components/LocationCard';
 const { width } = Dimensions.get('window');
 
 export default function Home() {
+  console.log("welcome to GhostPin");
+  
   const locations = useLocationStore((s) => s.locations);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;

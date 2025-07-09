@@ -3,7 +3,7 @@
     "name": "GhostPin",
     "slug": "GhostPin",
     "version": "1.0.0",
-    "scheme": "GhostPin",
+    "scheme": ["ghostpin"],
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -39,9 +39,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -58,18 +56,21 @@
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.sahilkr2909.GhostPin",
-      "config": {
-        "googleMaps": {
-          "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
-        }
+      "package": "com.sahilkr2909.GhostPin"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "67dfa4d6-8ab4-4c32-a6b9-9466b34cc9e5"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/67dfa4d6-8ab4-4c32-a6b9-9466b34cc9e5"
     }
   }
 }
