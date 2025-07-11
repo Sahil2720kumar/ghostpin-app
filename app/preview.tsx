@@ -10,6 +10,7 @@ import LocationCard from '~/components/LocationCard';
 import { captureRef } from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
 import * as Sharing from 'expo-sharing';
+import PhotoLocation from '~/components/PhotoLocation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -350,30 +351,33 @@ export default function PhotoPreview() {
               <Animated.View
                 style={{
                   opacity: buttonAnim,
+                  alignItems:'center',
+                  justifyContent:'center',
                   transform: [{
                     scale: buttonAnim.interpolate({
                       inputRange: [0, 1],
                       outputRange: [0.9, 1]
                     })
                   }]
+                  
                 }}
               >
                 <TouchableOpacity
-                  className="mx-4 rounded-2xl overflow-hidden shadow-2xl"
+                  className="mx-4 rounded-2xl overflow-hidden shadow-2xl items-center justify-center max-w-[600px]"
                   onPress={handleAddLocation}
                   activeOpacity={0.9}
                   disabled={isProcessing}
                 >
                   <LinearGradient
-                    colors={isProcessing ? ['#94a3b8', '#64748b'] : ['#10b981', '#059669']}
+                    colors={selectedLocation ? ["transparent","transparent"] : ['#10b981', '#059669']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 0, y: 0 }}
-                    className={`flex-row items-center justify-center ${selectedLocation ? 'py-0 px-0' : 'py-5 px-8'}`}
+                    className={`flex-row items-center justify-center  rounded-3xl ${selectedLocation ? 'py-0 px-0' : 'py-5 px-8'}`}
                   >
                     {selectedLocation && !isProcessing ? (
                       <>
                         <View className="flex-row items-center justify-center">
-                          <LocationCard item={selectedLocation} handleAddLocation={handleAddLocation} showWatermark={true} />
+                          <PhotoLocation item={selectedLocation} handleAddLocation={handleAddLocation} showWatermark={true} />
                         </View>
                       </>
                     ) : (

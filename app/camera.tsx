@@ -14,6 +14,8 @@ import LoadingView from '../components/LoadingView'
 import PermissionView from '~/components/PermissionView';
 import PrePreview from '~/components/PrePreview';
 
+
+
 // Create the animated camera component outside the main component
 const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera);
 
@@ -185,6 +187,7 @@ export default function CameraScreen() {
         flash: flashMode,
         // qualityPrioritization: 'quality',
       });
+
 
       if (!photoResult) {
         Alert.alert('Error', 'Failed to capture photo');
